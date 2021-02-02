@@ -3,7 +3,8 @@
     <el-container>
       <el-header>
         <div class="logo">
-          <img src="./../../assets/website/top_logo.png" alt/>
+          <img src="./../../assets/website/logo_left.png" alt/>
+          <img src="./../../assets/website/top_logo_right.png" alt/>
         </div>
         <el-menu
           :default-active="menuIndex"
@@ -166,16 +167,15 @@
     align-content: center;
     width: 1240px;
     margin: 0 auto;
-    //background-color: #fff;
+    background-color: #fff;
 
     .logo {
       width: 280px;
       padding: 0px;
-
       img {
         margin-top: 10px;
-        height: 40px;
-        line-height: 40px;
+        height: 50px;
+        line-height: 50px;
       }
     }
   }
