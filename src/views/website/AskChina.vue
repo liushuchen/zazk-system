@@ -7,13 +7,21 @@
              @click="checkLeft(index)">{{ item.name }}
         </div>
       </div>
-      <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/askChina?position=1' }">您当前位置:问矿中国</el-breadcrumb-item>
-        <el-breadcrumb-item v-if="position == item.position"
-                            v-for="(item,key) in leftList"
-                            :key="key"
-                            v-text="item.name"/>
-      </el-breadcrumb>
+      <!-- 右边 -->
+      <div style="flex: auto;">
+        <el-header style="text-align: right; font-size: 12px;width: 100%;height: 35px;padding: 0;">
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item :to="{ path: '/askChina?position=1' }">您当前位置:问矿中国</el-breadcrumb-item>
+            <el-breadcrumb-item v-if="position == item.position"
+                                v-for="(item,key) in leftList"
+                                :key="key"
+                                v-text="item.name"/>
+          </el-breadcrumb>
+        </el-header>
+        <div style="background: #fff;padding: 20px;min-height: 600px;">
+
+        </div>
+      </div>
     </div>
   </div>
 </template>
