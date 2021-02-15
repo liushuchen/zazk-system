@@ -3,15 +3,15 @@
     <el-container>
       <el-header>
         <div class="logo">
-          <img src="./../../assets/website/logo_left.png" alt/>
-          <img src="./../../assets/website/top_logo_right.png" alt/>
+          <img src="./../../assets/website/top_logo.png" alt>
         </div>
         <el-menu
           :default-active="menuIndex"
           class="el-menu-demo"
+          style="margin-left: 120px;"
           mode="horizontal"
-          @select="handleSelect"
           :router="router"
+          @select="handleSelect"
           @open="handleOpen"
           @close="handleClose"
         >
@@ -64,7 +64,8 @@
             <el-menu-item index="/askChina?position=4">《矿业三人谈》</el-menu-item>
           </el-submenu>
           <!--关于我们-->
-          <el-submenu index="/about">
+         <!-- <el-menu-item index="/about">关于我们</el-menu-item>-->
+           <el-submenu index="/about">
             <template slot="title">
               <a @click="toIndex('/about?position=1')">
                 关于我们
@@ -79,16 +80,17 @@
         <!--搜索框-->
         <el-input
           style="width: 230px;position: absolute;right: 30px;padding: 10px;height: 40px;"
-          placeholder="请输入内容">
-          <el-button slot="append" icon="el-icon-search"></el-button>
+          placeholder="请输入内容"
+        >
+          <el-button slot="append" icon="el-icon-search" />
         </el-input>
       </el-header>
       <el-main>
         <keep-alive>
-          <router-view/>
+          <router-view />
         </keep-alive>
       </el-main>
-      <div class="footer" v-show="isShow">
+      <div v-show="isShow" class="footer">
         <div class="footer-content">
           <ul class="content-nav">
             <li>
@@ -98,7 +100,7 @@
               <span>地址：广州市天河区黄埔大道中199号整栋(部位:8层801-804)(仅限办公)</span>
             </li>
           </ul>
-          <img src="./../../assets/img/ercode.png" alt/>
+          <img src="./../../assets/img/ercode.png" alt>
         </div>
       </div>
     </el-container>
@@ -106,41 +108,40 @@
 </template>
 
 <script>
-  export default {
-    name: 'Website',
-    data() {
-      return {
-        router: true,
-        menuIndex: this.$store.getters.menuIndex,
-        isShow: this.$store.getters.menuIndex != '/home'
-      }
+export default {
+  name: 'Website',
+  data() {
+    return {
+      router: true,
+      menuIndex: this.$store.getters.menuIndex,
+      isShow: this.$store.getters.menuIndex != '/home'
+    }
+  },
+  watch: {
+    '$store.getters.menuIndex'() {
+      this.menuIndex = this.$store.getters.menuIndex
+      this.isShow = this.menuIndex != '/home'
+    }
+  },
+  created() {
+    this.$store.dispatch('website/changeMenuIndex', this.$route.fullPath)
+  },
+  methods: {
+    handleOpen(key, keyPath) {
+      console.log('handleOpen', key, keyPath)
     },
-    watch: {
-      '$store.getters.menuIndex'() {
-        this.menuIndex = this.$store.getters.menuIndex
-        this.isShow = this.menuIndex != '/home'
-      }
+    handleClose(key, keyPath) {
+      console.log('handleClose', key, keyPath)
     },
-    created() {
-      this.$store.dispatch('website/changeMenuIndex', this.$route.fullPath)
+    handleSelect(key) {
+      this.$store.dispatch('website/changeMenuIndex', key)
     },
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log('handleOpen', key, keyPath)
-      },
-      handleClose(key, keyPath) {
-        console.log('handleClose', key, keyPath)
-      },
-      handleSelect(key) {
-
-        this.$store.dispatch('website/changeMenuIndex', key)
-      },
-      toIndex(location) {
-        this.$store.dispatch('website/changeMenuIndex', location)
-        this.$router.push(location)
-      }
+    toIndex(location) {
+      this.$store.dispatch('website/changeMenuIndex', location)
+      this.$router.push(location)
     }
   }
+}
 </script>
 
 <style lang="less">
@@ -163,19 +164,20 @@
 
   .el-header {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-content: center;
     width: 1240px;
     margin: 0 auto;
-    background-color: #fff;
+    //background-color: #fff;
 
     .logo {
       width: 280px;
       padding: 0px;
+
       img {
         margin-top: 10px;
-        height: 50px;
-        line-height: 50px;
+        height: 40px;
+        line-height: 40px;
       }
     }
   }
