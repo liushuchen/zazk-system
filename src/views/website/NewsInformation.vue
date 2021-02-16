@@ -19,7 +19,8 @@
           </el-breadcrumb>
         </el-header>
         <div style="background: #fff;padding: 20px;min-height: 600px;">
-         <iframe src="https://www.cnblogs.com/liushuchen/articles/12881917.html" height="600px" width="100%"/>
+          <c_1 v-if="position ==1"></c_1>
+          <c_3 v-if="position ==2"></c_3>
         </div>
       </div>
     </div>
@@ -27,10 +28,12 @@
 </template>
 
 <script>
-  import Link from '@/layout/components/Sidebar/Link'
+  import c_1 from './content/c_1'
+  import c_3 from './content/c_3'
+
   export default {
     name: 'NewsInformation',
-    components: { Link },
+    components: { c_1,c_3 },
     watch: {
       $route() {
         this.position = this.$route.query.position
@@ -43,7 +46,7 @@
           { name: '智库动态', position: 1 },
           { name: '媒体报道', position: 2 }
         ],
-        html:'https://www.cnblogs.com/liushuchen/articles/12881917.html'
+        html: ``
       }
     },
     methods: {
