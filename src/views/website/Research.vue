@@ -1,17 +1,11 @@
 <template>
   <div style="width: 100%;overflow: hidden;background: #f5f5f5;min-height: 740px;">
     <div style="width: 1200px;margin:30px auto 0;display: flex;overflow: hidden;">
-      <!-- 左边 -->
-      <div class="left-box" style="min-width: 25%;">
-        <div v-for="(item, index) in leftList" :key="index" :class="position-1 == index ? 'line' : ''"
-             @click="checkLeft(index)">{{ item.name }}
-        </div>
-      </div>
       <!-- 右边 -->
       <div style="flex: auto;">
         <div class="content-box">
           <!--左侧菜单-->
-          <LeftListCom :data-list="leftList"/>
+          <LeftListCom :data-list="leftList" name="Research" payload="/research/"/>
           <div style="display: flex;flex-direction: column">
             <div style="margin-bottom: 10px">
               <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -40,10 +34,11 @@
 <script>
   import PersonnelCom from '@/views/website/components/PersonnelCom'
   import MediaCoverage from '@/views/website/components/MediaCoverage'
+  import LeftListCom from '@/views/website/components/LeftListCom'
 
   export default {
     name: 'Research',
-    components: { MediaCoverage, PersonnelCom },
+    components: { MediaCoverage, PersonnelCom, LeftListCom },
     watch: {
       $route() {
         this.position = this.$route.params.position
@@ -107,6 +102,14 @@
 </script>
 
 <style scoped>
+
+  .content-box {
+    display: flex;
+    background: rgb(245, 245, 245);
+    padding: 20px;
+    min-height: 600px;
+  }
+
   .left-box > div {
     width: 260px;
     margin: 0px 0 13px;

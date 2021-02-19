@@ -12,6 +12,8 @@
   export default {
     name: 'LeftListCom',
     props: {
+      name: '',
+      payload: '',
       dataList: {
         type: Array,
         default: () => {
@@ -32,8 +34,8 @@
     methods: {
       checkLeft(index) {
         let position = index
-        this.$store.dispatch('website/changeMenuIndex', '/about/' + position)
-        this.$router.push({ name: 'About', params: { position: position } })
+        this.$store.dispatch('website/changeMenuIndex', this.payload + position)
+        this.$router.push({ name: this.name, params: { position: position } })
       }
     }
   }
@@ -44,6 +46,7 @@
     margin-right: 20px;
     min-width: 25%;
   }
+
   .left-box > div {
     width: 260px;
     margin: 0px 0 13px;
@@ -57,6 +60,7 @@
     border-left: 6px solid #fff;
     transition: all 0.3s;
   }
+
   .line {
     border-left: 6px solid #095baf !important;
     color: #095baf !important;

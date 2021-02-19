@@ -5,7 +5,7 @@
       <div style="flex: auto;">
         <div class="content-box">
           <!--左侧菜单-->
-          <LeftListCom :data-list="leftList"/>
+          <LeftListCom :data-list="leftList"  name="About" payload="/about/"/>
           <div style="display: flex;flex-direction: column">
             <div style="margin-bottom: 10px">
               <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -91,7 +91,6 @@
       $route() {
         this.position = this.$route.params.position
         this.breadcrumbList[1] = { name: this.leftList[this.position - 1].name, url: '/about/' + this.position }
-        console.info(' this.breadcrumbList', this.breadcrumbList)
       }
     },
     methods: {
