@@ -2,20 +2,15 @@
   <div class="carousel">
     <el-carousel
       trigger="click"
+      height="800px"
       :autoplay="false"
       arrow="always"
-      height="800px"
     >
-      <el-carousel-item v-for="(item,key) in bannerList" :key="key">
-        <el-image
-          fit="cover"
-          :src="item.filePrefix+item.fileUrl"
-          @click="clickBanner(item)"
-        >
-          <div slot="placeholder" class="image-slot">
-            加载中<span class="dot">...</span>
-          </div>
-        </el-image>
+      <el-carousel-item v-for="(item,key) in bannerList"
+                        :key="key"
+                        align="center">
+        <img :src="item.filePrefix+item.fileUrl"
+             @click="clickBanner(item)">
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -28,24 +23,24 @@
       return {
         loading: true,
         bannerList: [{
-          jumpType: 1,
-          jumpParam: 'https://www.baidu.com',
+          jumpType: 2,
+          jumpParam: 'http://zazk.httdmall.com/content/c_001.html',
+          fileUrl: 'zazk/banner/2.png',
+          filePrefix: 'https://file.httdmall.com/'
+        }, {
+          jumpType: 2,
+          jumpParam: 'http://zazk.httdmall.com/content/c_002.html',
           fileUrl: 'zazk/banner/1.png',
           filePrefix: 'https://file.httdmall.com/'
         }, {
           jumpType: 2,
-          jumpParam: 'https://www.baidu.com',
-          fileUrl: 'zazk/banner/2.png',
-          filePrefix: 'https://file.httdmall.com/'
-        }, {
-          jumpType: 3,
-          jumpParam: '/about?position=3',
-          fileUrl: 'zazk/banner/3.png',
-          filePrefix: 'https://file.httdmall.com/'
-        }, {
-          jumpType: 1,
-          jumpParam: '/about?position=3',
+          jumpParam: 'http://zazk.httdmall.com/content/c_003.html',
           fileUrl: 'zazk/banner/4.jpeg',
+          filePrefix: 'https://file.httdmall.com/'
+        }, {
+          jumpType: 2,
+          jumpParam: 'http://zazk.httdmall.com/content/c_004.html',
+          fileUrl: 'zazk/banner/3.png',
           filePrefix: 'https://file.httdmall.com/'
         }]
       }
@@ -81,22 +76,19 @@
 </script>
 
 <style scoped>
+  img{
+    height: 800px;
+  }
   .carousel {
     height: 1000px;
     width: 100%;
   }
+
   .el-carousel__item h3 {
     color: #475669;
     font-size: 18px;
     opacity: 0.75;
     line-height: 300px;
     margin: 0;
-  }
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
   }
 </style>

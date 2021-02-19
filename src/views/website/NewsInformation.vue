@@ -19,8 +19,42 @@
           </el-breadcrumb>
         </el-header>
         <div style="background: #fff;padding: 20px;min-height: 600px;">
-          <c_1 v-if="position ==1"></c_1>
-          <c_3 v-if="position ==2"></c_3>
+          <div class="document-box">
+            <ul v-if="position ==2">
+              <li>
+                <div class="re_box">
+                  <a target="_blank" href="http://zazk.httdmall.com/content/c_001.html" class="titleblack">
+                    首届中国矿业法治暨矿业仲裁高峰论坛
+                  </a>
+                  <span class="date1">2020-10-25 09:08:01</span>
+                </div>
+              </li>
+              <li>
+                <div class="re_box">
+                  <a target="_blank" href="http://zazk.httdmall.com/content/c_002.html" class="titleblack">
+                    “矿业权评估与矿企改革研讨会”在京召开
+                  </a>
+                  <span class="date1">2020-10-25 09:08:01</span>
+                </div>
+              </li>
+              <li>
+                <div class="re_box">
+                  <a target="_blank" href="http://zazk.httdmall.com/content/c_003.html" class="titleblack">
+                    暨自然资源法治研究中心成立大会议程
+                  </a>
+                  <span class="date1">2020-10-25 09:08:01</span>
+                </div>
+              </li>
+              <li>
+                <div class="re_box">
+                  <a target="_blank" href="http://zazk.httdmall.com/content/c_004.html" class="titleblack">
+                    企研联手会商矿业权收益评估问题
+                  </a>
+                  <span class="date1">2020-10-25 09:08:01</span>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -28,12 +62,8 @@
 </template>
 
 <script>
-  import c_1 from './content/c_1'
-  import c_3 from './content/c_3'
-
   export default {
     name: 'NewsInformation',
-    components: { c_1,c_3 },
     watch: {
       $route() {
         this.position = this.$route.query.position
@@ -58,6 +88,28 @@
 </script>
 
 <style scoped>
+  .titleblack {
+    display: block;
+    color: #333333 !important;
+    width: 600px;
+    font-size: 15px;
+    float: left;
+  }
+
+  .date1 {
+    color: #7b7b7b;
+    font-size: 14px;
+    float: right;
+  }
+
+  .re_box {
+    line-height: 50px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
   .left-box > div {
     width: 260px;
     margin: 0px 0 13px;
@@ -70,6 +122,10 @@
     justify-content: center;
     border-left: 6px solid #fff;
     transition: all 0.3s;
+  }
+
+  .pagination {
+    text-align: right;
   }
 
   .line {
