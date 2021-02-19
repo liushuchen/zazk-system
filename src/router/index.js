@@ -51,7 +51,7 @@ export const constantRoutes = [
           title: '首页'
         }
       }, {
-        path: '/newsInformation',
+        path: '/newsInformation/:position',
         name: 'NewsInformation',
         component: () => import('@/views/website/NewsInformation'),
         meta: {
@@ -59,7 +59,7 @@ export const constantRoutes = [
           title: '新闻动态'
         }
       }, {
-        path: '/research',
+        path: '/research/:position',
         name: 'Research',
         component: () => import('@/views/website/Research'),
         meta: {
@@ -67,7 +67,7 @@ export const constantRoutes = [
           title: '调查研究'
         }
       }, {
-        path: '/cooperation',
+        path: '/cooperation/:position',
         name: 'Cooperation',
         component: () => import('@/views/website/Cooperation'),
         meta: {
@@ -75,7 +75,7 @@ export const constantRoutes = [
           title: '交流合作'
         }
       }, {
-        path: '/askChina',
+        path: '/askChina/:position',
         name: 'AskChina',
         component: () => import('@/views/website/AskChina'),
         meta: {
@@ -83,7 +83,7 @@ export const constantRoutes = [
           title: '问矿中国'
         }
       }, {
-        path: '/about',
+        path: '/about/:position',
         name: 'About',
         component: () => import('@/views/website/About'),
         meta: {
@@ -93,6 +93,7 @@ export const constantRoutes = [
       }
     ]
   },
+  /**/
   {
     path: 'dashboard',
     component: Layout,

@@ -66,7 +66,7 @@
     name: 'NewsInformation',
     watch: {
       $route() {
-        this.position = this.$route.query.position
+        this.position = this.$route.params.position
       }
     },
     data() {
@@ -81,7 +81,9 @@
     },
     methods: {
       checkLeft(index) {
-        this.position = index + 1
+        let position = index + 1
+        this.$store.dispatch('website/changeMenuIndex', '/newsInformation/' + position)
+        this.$router.push({ name: 'NewsInformation', params: { position: position } })
       }
     }
   }

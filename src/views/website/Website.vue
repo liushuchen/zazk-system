@@ -2,13 +2,9 @@
   <div id="app">
     <el-container>
       <el-header>
-        <div class="logo">
-          <img src="./../../assets/website/top_logo.png" alt>
-        </div>
+        <a class="logo" href="#"></a>
         <el-menu
           :default-active="menuIndex"
-          class="el-menu-demo"
-          style="margin-left: 120px;"
           mode="horizontal"
           :router="router"
           @select="handleSelect"
@@ -16,65 +12,19 @@
           @close="handleClose"
         >
           <!--首页-->
-          <el-menu-item index="/home">首页</el-menu-item>
-          <!--新闻动态-->
-          <el-submenu index="/newsInformation">
+          <el-menu-item index="/home" class="">首页</el-menu-item>
+          <el-submenu :index="item.url"
+                      v-for="(item,key) in dataList"
+                      :key="key">
             <template slot="title">
-              <a @click="toIndex('/newsInformation?position=1')">新闻动态</a>
-            </template>
-            <el-menu-item index="/newsInformation?position=1">智库动态</el-menu-item>
-            <el-menu-item index="/newsInformation?position=2">媒体报道</el-menu-item>
-          </el-submenu>
-          <!--调查研究-->
-          <el-submenu index="/research">
-            <template slot="title">
-              <a @click="toIndex('/research?position=1')">
-                调查研究
+              <a @click="toIndex(item.url+'/'+item.subList[0].position)">
+                {{item.title}}
               </a>
             </template>
-            <el-menu-item index="/research?position=1">顾问委员会</el-menu-item>
-            <el-menu-item index="/research?position=2">学术专家委员会</el-menu-item>
-            <el-menu-item index="/research?position=3">咨询专家委员会</el-menu-item>
-            <el-menu-item index="/research?position=4">研究员</el-menu-item>
-            <el-menu-item index="/research?position=5">助理研究员</el-menu-item>
-            <el-menu-item index="/research?position=6">研究报告</el-menu-item>
-            <el-menu-item index="/research?position=7">智库观点</el-menu-item>
-          </el-submenu>
-          <!--合作交流-->
-          <el-submenu index="/cooperation">
-            <template slot="title">
-              <a @click="toIndex('/cooperation?position=1')">
-                合作交流
-              </a>
-            </template>
-            <el-menu-item index="/cooperation?position=1">合作交流</el-menu-item>
-            <el-menu-item index="/cooperation?position=2">合作单位</el-menu-item>
-            <el-menu-item index="/cooperation?position=3">经典案例</el-menu-item>
-          </el-submenu>
-          <!--问矿中国-->
-          <el-submenu index="/askChina">
-            <template slot="title">
-              <a @click="toIndex('/askChina?position=1')">
-                问矿中国
-              </a>
-            </template>
-            <el-menu-item index="/askChina?position=1">组委会</el-menu-item>
-            <el-menu-item index="/askChina?position=2">专项活动</el-menu-item>
-            <el-menu-item index="/askChina?position=3">视频团队</el-menu-item>
-            <el-menu-item index="/askChina?position=4">《矿业三人谈》</el-menu-item>
-          </el-submenu>
-          <!--关于我们-->
-         <!-- <el-menu-item index="/about">关于我们</el-menu-item>-->
-           <el-submenu index="/about">
-            <template slot="title">
-              <a @click="toIndex('/about?position=1')">
-                关于我们
-              </a>
-            </template>
-            <el-menu-item index="/about?position=1">管理团队</el-menu-item>
-            <el-menu-item index="/about?position=2">智库简介</el-menu-item>
-            <el-menu-item index="/about?position=3">组织机构</el-menu-item>
-            <el-menu-item index="/about?position=4">联系信息</el-menu-item>
+            <el-menu-item :index="item.url+'/'+i.position"
+                          v-for="(i,k) in item.subList"
+                          :key="k">{{i.title}}
+            </el-menu-item>
           </el-submenu>
         </el-menu>
         <!--搜索框-->
@@ -82,66 +32,161 @@
           style="width: 230px;position: absolute;right: 30px;padding: 10px;height: 40px;"
           placeholder="请输入内容"
         >
-          <el-button slot="append" icon="el-icon-search" />
+          <el-button slot="append" icon="el-icon-search"/>
         </el-input>
       </el-header>
+      <!--这块是内容-->
       <el-main>
-        <keep-alive>
-          <router-view />
-        </keep-alive>
-      </el-main>
-      <div v-show="isShow" class="footer">
-        <div class="footer-content">
-          <ul class="content-nav">
-            <li>
-              <p>联系我们</p>
-              <span>邮箱：ZAI@zazk.org.cn</span>
-              <span>电话：021-55802368</span>
-              <span>地址：广州市天河区黄埔大道中199号整栋(部位:8层801-804)(仅限办公)</span>
-            </li>
-          </ul>
-          <img src="./../../assets/img/ercode.png" alt>
+        <div v-if="isBanner">
+          <Home></Home>
         </div>
-      </div>
+        <div v-else>
+          <!-- 左边 -->
+          <LeftListCom/>
+
+          <router-view/>
+          <FooterCom/>
+        </div>
+      </el-main>
     </el-container>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Website',
-  data() {
-    return {
-      router: true,
-      menuIndex: this.$store.getters.menuIndex,
-      isShow: this.$store.getters.menuIndex != '/home'
-    }
-  },
-  watch: {
-    '$store.getters.menuIndex'() {
-      this.menuIndex = this.$store.getters.menuIndex
-      this.isShow = this.menuIndex != '/home'
-    }
-  },
-  created() {
-    this.$store.dispatch('website/changeMenuIndex', this.$route.fullPath)
-  },
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log('handleOpen', key, keyPath)
+  import Home from '@/views/website/Home'
+  import FooterCom from '@/views/website/components/FooterCom'
+  import LeftListCom from '@/views/website/components/LeftListCom'
+
+  export default {
+    components: { LeftListCom, FooterCom, Home },
+    name: 'Website',
+    data() {
+      return {
+        //是否是首页
+        isBanner: true,
+        router: true,
+        menuIndex: this.$store.getters.menuIndex,
+        dataList: [
+          {
+            title: '新闻动态',
+            url: '/newsInformation',
+            subList: [
+              {
+                title: '智库动态',
+                position: '1'
+              }, {
+                title: '媒体报道',
+                position: '2'
+              }
+            ]
+          },
+          {
+            title: '调查研究',
+            url: '/research',
+            subList: [
+              {
+                title: '顾问委员会',
+                position: '1'
+              }, {
+                title: '学术专家委员会',
+                position: '2'
+              }, {
+                title: '咨询专家委员会',
+                position: '3'
+              }, {
+                title: '研究员',
+                position: '4'
+              }, {
+                title: '助理研究员',
+                position: '5'
+              }, {
+                title: '研究报告',
+                position: '6'
+              }, {
+                title: '智库观点',
+                position: '7'
+              }
+            ]
+          }, {
+            title: '合作交流',
+            url: '/cooperation',
+            subList: [
+              {
+                title: '合作交流',
+                position: '1'
+              }, {
+                title: '合作单位',
+                position: '2'
+              }, {
+                title: '经典案例',
+                position: '3'
+              }
+            ]
+          }, {
+            title: '问矿中国',
+            url: '/askChina',
+            subList: [
+              {
+                title: '组委会',
+                position: '1'
+              }, {
+                title: '专项活动',
+                position: '2'
+              }, {
+                title: '视频团队',
+                position: '3'
+              }, {
+                title: '《矿业三人谈》',
+                position: '4'
+              }
+            ]
+          }, {
+            title: '关于我们',
+            url: '/about',
+            subList: [
+              {
+                title: '管理团队',
+                position: '1'
+              }, {
+                title: '智库简介',
+                position: '2'
+              }, {
+                title: '组织机构',
+                position: '3'
+              }, {
+                title: '联系信息',
+                position: '4'
+              }
+            ]
+          }
+        ]
+      }
     },
-    handleClose(key, keyPath) {
-      console.log('handleClose', key, keyPath)
+    watch: {
+      '$store.getters.menuIndex'() {
+        this.menuIndex = this.$store.getters.menuIndex
+        this.isBanner = this.menuIndex == '/home'
+      }
     },
-    handleSelect(key) {
-      this.$store.dispatch('website/changeMenuIndex', key)
+    created() {
+      this.$store.dispatch('website/changeMenuIndex', this.$route.fullPath)
     },
-    toIndex(location) {
-      this.$store.dispatch('website/changeMenuIndex', location)
-      this.$router.push(location)
+    methods: {
+      handleOpen(key, keyPath) {
+        console.log('handleOpen', key, keyPath)
+      },
+      handleClose(key, keyPath) {
+        console.log('handleClose', key, keyPath)
+      },
+      handleSelect(key) {
+        this.$store.dispatch('website/changeMenuIndex', key)
+      },
+      toIndex(location) {
+        this.$store.dispatch('website/changeMenuIndex', location)
+        this.$router.push(location)
+      }
     }
   }
-}
 </script>
 
 <style lang="less">
@@ -150,16 +195,22 @@ export default {
     margin: 0;
   }
 
-  html,
-  body {
-    height: 100%;
+  .logo {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: #ffffff url("./../../assets/website/logo_left.png") repeat;
   }
 
   #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
+    color: #3566ce;
+  }
+
+  .el-menu-demo {
+    color: #3566ce;
   }
 
   .el-header {
@@ -241,5 +292,35 @@ export default {
         line-height: 30px;
       }
     }
+  }
+
+  .left-box > div {
+    width: 260px;
+    margin: 0px 0 13px;
+    height: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 6px solid #fff;
+    transition: all 0.3s;
+  }
+
+  .line {
+    border-left: 6px solid #095baf !important;
+    color: #095baf !important;
+  }
+
+  .leadertext {
+    background: #f3f4f6;
+    line-height: 28px;
+    color: #095baf;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 0 0 10px;
+    display: block;
+    margin-bottom: 20px;
   }
 </style>
