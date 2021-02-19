@@ -9,51 +9,20 @@
       </div>
       <!-- 右边 -->
       <div style="flex: auto;">
-        <el-header style="text-align: right; font-size: 12px;width: 100%;height: 35px;padding: 0;">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/newsInformation?position=1' }">您当前位置:新闻动态</el-breadcrumb-item>
-            <el-breadcrumb-item v-if="position == item.position"
-                                v-for="(item,key) in leftList"
-                                :key="key"
-                                v-text="item.name"/>
-          </el-breadcrumb>
-        </el-header>
-        <div style="background: #fff;padding: 20px;min-height: 600px;">
-          <div class="document-box">
-            <ul v-if="position ==2">
-              <li>
-                <div class="re_box">
-                  <a target="_blank" href="http://zazk.httdmall.com/content/c_001.html" class="titleblack">
-                    首届中国矿业法治暨矿业仲裁高峰论坛
-                  </a>
-                  <span class="date1">2020-10-25 09:08:01</span>
-                </div>
-              </li>
-              <li>
-                <div class="re_box">
-                  <a target="_blank" href="http://zazk.httdmall.com/content/c_002.html" class="titleblack">
-                    “矿业权评估与矿企改革研讨会”在京召开
-                  </a>
-                  <span class="date1">2020-10-25 09:08:01</span>
-                </div>
-              </li>
-              <li>
-                <div class="re_box">
-                  <a target="_blank" href="http://zazk.httdmall.com/content/c_003.html" class="titleblack">
-                    暨自然资源法治研究中心成立大会议程
-                  </a>
-                  <span class="date1">2020-10-25 09:08:01</span>
-                </div>
-              </li>
-              <li>
-                <div class="re_box">
-                  <a target="_blank" href="http://zazk.httdmall.com/content/c_004.html" class="titleblack">
-                    企研联手会商矿业权收益评估问题
-                  </a>
-                  <span class="date1">2020-10-25 09:08:01</span>
-                </div>
-              </li>
-            </ul>
+        <div class="content-box">
+          <!--左侧菜单-->
+          <LeftListCom :data-list="leftList"/>
+          <div style="display: flex;flex-direction: column">
+            <div style="margin-bottom: 10px">
+              <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: item.url }"
+                                    :key="key"
+                                    v-for="(item,key) in breadcrumbList">
+                  {{key ==0?'当前位置:'+item.name:item.name}}
+                </el-breadcrumb-item>
+              </el-breadcrumb>
+            </div>
+            <MediaCoverage v-if="position==2"/>
           </div>
         </div>
       </div>
@@ -62,8 +31,11 @@
 </template>
 
 <script>
+  import MediaCoverage from '@/views/website/components/MediaCoverage'
+
   export default {
     name: 'NewsInformation',
+    components: { MediaCoverage },
     watch: {
       $route() {
         this.position = this.$route.params.position
@@ -71,6 +43,13 @@
     },
     data() {
       return {
+        breadcrumbList: [
+          {
+            name: '新闻动态', url: '/newsInformation/1'
+          }, {
+            name: '智库动态', url: '/newsInformation/1'
+          }
+        ],
         position: 1,
         leftList: [
           { name: '智库动态', position: 1 },
@@ -90,23 +69,7 @@
 </script>
 
 <style scoped>
-  .titleblack {
-    display: block;
-    color: #333333 !important;
-    width: 600px;
-    font-size: 15px;
-    float: left;
-  }
 
-  .date1 {
-    color: #7b7b7b;
-    font-size: 14px;
-    float: right;
-  }
-
-  .re_box {
-    line-height: 50px;
-  }
 
   ul {
     list-style: none;

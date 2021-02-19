@@ -9,17 +9,28 @@
       </div>
       <!-- 右边 -->
       <div style="flex: auto;">
-        <el-header style="text-align: right; font-size: 12px;width: 100%;height: 35px;padding: 0;">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/research?position=1' }">您当前位置:调查研究</el-breadcrumb-item>
-            <el-breadcrumb-item v-if="position == item.position"
-                                v-for="(item,key) in leftList"
-                                :key="key"
-                                v-text="item.name"/>
-          </el-breadcrumb>
-        </el-header>
-        <div style="background: #fff;padding: 20px;min-height: 600px;">
-
+        <div class="content-box">
+          <!--左侧菜单-->
+          <LeftListCom :data-list="leftList"/>
+          <div style="display: flex;flex-direction: column">
+            <div style="margin-bottom: 10px">
+              <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: item.url }"
+                                    :key="key"
+                                    v-for="(item,key) in breadcrumbList">
+                  {{key ==0?'当前位置:'+item.name:item.name}}
+                </el-breadcrumb-item>
+              </el-breadcrumb>
+            </div>
+            <!-- 管理团队 -->
+            <PersonnelCom :data-list="rightList" v-if="position == 1"/>
+            <PersonnelCom :data-list="rightList" v-if="position == 2"/>
+            <PersonnelCom :data-list="rightList" v-if="position == 3"/>
+            <PersonnelCom :data-list="rightList" v-if="position == 4"/>
+            <PersonnelCom :data-list="rightList" v-if="position == 5"/>
+            <MediaCoverage v-if="position == 6"/>
+            <MediaCoverage v-if="position == 7"/>
+          </div>
         </div>
       </div>
     </div>
@@ -27,8 +38,12 @@
 </template>
 
 <script>
+  import PersonnelCom from '@/views/website/components/PersonnelCom'
+  import MediaCoverage from '@/views/website/components/MediaCoverage'
+
   export default {
     name: 'Research',
+    components: { MediaCoverage, PersonnelCom },
     watch: {
       $route() {
         this.position = this.$route.params.position
@@ -36,6 +51,40 @@
     },
     data() {
       return {
+        rightList: [
+          {
+            name: '党组书记，副主任',
+            imageList: [
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' },
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' },
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' },
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' }
+            ]
+          },
+          {
+            name: '党组书记，副主任',
+            imageList: [
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' },
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' },
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' }
+            ]
+          },
+          {
+            name: '党组书记，副主任',
+            imageList: [
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' },
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' },
+              { url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', nickName: '张国荣' }
+            ]
+          }
+        ],
+        breadcrumbList: [
+          {
+            name: '调查研究', url: '/research/1'
+          }, {
+            name: '顾问委员会', url: '/research/1'
+          }
+        ],
         position: 1,
         leftList: [
           { name: '顾问委员会', position: 1 },
