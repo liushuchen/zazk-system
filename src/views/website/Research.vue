@@ -42,7 +42,11 @@
     watch: {
       $route() {
         this.position = this.$route.params.position
+        this.breadcrumbList[1] = { name: this.leftList[this.position - 1].name, url: '/about/' + this.position }
       }
+    },
+    mounted() {
+      this.position = this.$route.params.position
     },
     data() {
       return {
@@ -89,13 +93,6 @@
           { name: '助理研究员', position: 5 },
           { name: '研究报告', position: 6 },
           { name: '智库观点', position: 7 }]
-      }
-    },
-    methods: {
-      checkLeft(index) {
-        let position = index + 1
-        this.$store.dispatch('website/changeMenuIndex', '/research/' + position)
-        this.$router.push({ name: 'Research', params: { position: position } })
       }
     }
   }

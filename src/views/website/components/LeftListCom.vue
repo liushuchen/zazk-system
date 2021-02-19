@@ -31,6 +31,9 @@
         this.position = this.$route.params.position
       }
     },
+    mounted() {
+      this.position = this.$route.params.position
+    },
     methods: {
       checkLeft(index) {
         let position = index

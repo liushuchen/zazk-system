@@ -1,17 +1,11 @@
 <template>
   <div style="width: 100%;overflow: hidden;background: #f5f5f5;min-height: 740px;">
     <div style="width: 1200px;margin:30px auto 0;display: flex;overflow: hidden;">
-      <!-- 左边 -->
-      <div class="left-box" style="min-width: 25%;">
-        <div v-for="(item, index) in leftList" :key="index" :class="position-1 == index ? 'line' : ''"
-             @click="checkLeft(index)">{{ item.name }}
-        </div>
-      </div>
       <!-- 右边 -->
       <div style="flex: auto;">
         <div class="content-box">
           <!--左侧菜单-->
-          <LeftListCom :data-list="leftList"/>
+          <LeftListCom :data-list="leftList" name="NewsInformation" payload="/newsInformation/"/>
           <div style="display: flex;flex-direction: column">
             <div style="margin-bottom: 10px">
               <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -32,14 +26,19 @@
 
 <script>
   import MediaCoverage from '@/views/website/components/MediaCoverage'
+  import LeftListCom from '@/views/website/components/LeftListCom'
 
   export default {
     name: 'NewsInformation',
-    components: { MediaCoverage },
+    components: { LeftListCom, MediaCoverage },
     watch: {
       $route() {
         this.position = this.$route.params.position
+        this.breadcrumbList[1] = { name: this.leftList[this.position - 1].name, url: '/about/' + this.position }
       }
+    },
+    mounted() {
+      this.position = this.$route.params.position
     },
     data() {
       return {
@@ -55,20 +54,20 @@
           { name: '智库动态', position: 1 },
           { name: '媒体报道', position: 2 }
         ],
-        html: ``
       }
     },
     methods: {
-      checkLeft(index) {
-        let position = index + 1
-        this.$store.dispatch('website/changeMenuIndex', '/newsInformation/' + position)
-        this.$router.push({ name: 'NewsInformation', params: { position: position } })
-      }
     }
   }
 </script>
 
 <style scoped>
+  .content-box {
+    display: flex;
+    background: rgb(245, 245, 245);
+    padding: 20px;
+    min-height: 600px;
+  }
 
 
   ul {

@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
       <el-header>
-        <a class="logo" href="#"></a>
+        <img src="./../../assets/website/top_logo.png"  class="logo" align="center"/>
         <el-menu
           :default-active="menuIndex"
           mode="horizontal"
@@ -194,14 +194,6 @@
     padding: 0;
     margin: 0;
   }
-
-  .logo {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    background: #ffffff url("./../../assets/website/logo_left.png") repeat;
-  }
-
   #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -222,14 +214,10 @@
     //background-color: #fff;
 
     .logo {
-      width: 280px;
-      padding: 0px;
-
-      img {
-        margin-top: 10px;
-        height: 40px;
-        line-height: 40px;
-      }
+      text-align: center;
+      height: 40px;
+      margin: 10px 20px;
+      line-height: 40px;
     }
   }
 

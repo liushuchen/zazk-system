@@ -34,6 +34,9 @@
         this.position = this.$route.params.position
       }
     },
+    mounted() {
+      this.position = this.$route.params.position
+    },
     data() {
       return {
         position: 1,

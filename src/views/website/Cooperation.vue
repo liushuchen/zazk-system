@@ -43,6 +43,9 @@
           { name: '经典案例', position: 3 }]
       }
     },
+    mounted() {
+      this.position = this.$route.params.position
+    },
     methods: {
       checkLeft(index) {
         let position = index + 1
