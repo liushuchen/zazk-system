@@ -1,16 +1,15 @@
 <template>
-  <div class="carousel">
+  <div>
     <el-carousel
       trigger="click"
       height="800px"
       :autoplay="false"
       arrow="always"
     >
-      <el-carousel-item v-for="(item,key) in bannerList"
-                        :key="key"
-                        align="center">
+      <el-carousel-item class="carousel" v-for="(item,key) in bannerList"
+                        :key="key">
         <img :src="item.filePrefix+item.fileUrl"
-             @click="clickBanner(item)">
+                  @click="clickBanner(item)"/>
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -76,19 +75,11 @@
 </script>
 
 <style scoped>
-  img{
-    height: 800px;
-  }
   .carousel {
-    height: 1000px;
     width: 100%;
   }
-
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
+  .carousel img {
+    height: 800px;
+    width: 100%;
   }
 </style>

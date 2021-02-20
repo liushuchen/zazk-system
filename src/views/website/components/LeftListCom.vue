@@ -47,7 +47,6 @@
 <style scoped>
   .left-box {
     margin-right: 20px;
-    min-width: 25%;
   }
 
   .left-box > div {

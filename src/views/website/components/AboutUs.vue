@@ -1,5 +1,5 @@
 <template>
-  <div style="background: #ffffff;min-height: 700px;padding: 0 20px; color: #001528;">
+  <div class="about">
     <h1>智库简介</h1>
     <p>
       中安智库（Zhongan Institution）成立于2019年7月，总部位于北京，由知名专家学者共同组成，是国内首家专业服务矿产、能源、安全领域的新型智库。
@@ -29,6 +29,14 @@
 </script>
 
 <style scoped>
+  .about {
+    width: 840px;
+    background: #ffffff;
+    min-height: 700px;
+    padding: 0 20px;
+    color: #001528;
+  }
+
   h1 {
     font-weight: 400;
     text-align: center;

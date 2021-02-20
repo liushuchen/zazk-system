@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
       <el-header>
-        <img src="./../../assets/website/top_logo.png"  class="logo" align="center"/>
+        <img src="./../../assets/website/logo.png" class="logo" align="center"/>
         <el-menu
           :default-active="menuIndex"
           mode="horizontal"
@@ -12,28 +12,31 @@
           @close="handleClose"
         >
           <!--首页-->
-          <el-menu-item index="/home" class="">首页</el-menu-item>
+          <el-menu-item index="/home" style="color: #3566ce">首页</el-menu-item>
           <el-submenu :index="item.url"
+
                       v-for="(item,key) in dataList"
                       :key="key">
             <template slot="title">
-              <a @click="toIndex(item.url+'/'+item.subList[0].position)">
+              <a @click="toIndex(item.url+'/'+item.subList[0].position)" style="color: #3566ce">
                 {{item.title}}
               </a>
             </template>
             <el-menu-item :index="item.url+'/'+i.position"
                           v-for="(i,k) in item.subList"
+                          style="background: #3566ce;color: #ffffff;"
                           :key="k">{{i.title}}
             </el-menu-item>
+
           </el-submenu>
         </el-menu>
         <!--搜索框-->
-        <el-input
-          style="width: 230px;position: absolute;right: 30px;padding: 10px;height: 40px;"
-          placeholder="请输入内容"
-        >
-          <el-button slot="append" icon="el-icon-search"/>
-        </el-input>
+        <div class="search">
+          <el-input placeholder="请输入内容">
+            <el-button slot="append" icon="el-icon-search"/>
+          </el-input>
+
+        </div>
       </el-header>
       <!--这块是内容-->
       <el-main>
@@ -194,6 +197,7 @@
     padding: 0;
     margin: 0;
   }
+
   #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -207,17 +211,14 @@
 
   .el-header {
     display: flex;
-    // justify-content: space-between;
     align-content: center;
     width: 1240px;
     margin: 0 auto;
-    //background-color: #fff;
 
     .logo {
       text-align: center;
-      height: 40px;
-      margin: 10px 20px;
-      line-height: 40px;
+      height: 60px;
+      line-height: 60px;
     }
   }
 
@@ -310,5 +311,13 @@
     padding: 0 0 0 10px;
     display: block;
     margin-bottom: 20px;
+  }
+
+  .el-menu--popup {
+    background: #3566ce;
+  }
+
+  .el-menu-item {
+
   }
 </style>

@@ -16,7 +16,7 @@
                 </el-breadcrumb-item>
               </el-breadcrumb>
             </div>
-            <MediaCoverage v-if="position==2"/>
+            <MediaCoverage v-if="position == 2 "/>
           </div>
         </div>
       </div>
@@ -34,7 +34,10 @@
     watch: {
       $route() {
         this.position = this.$route.params.position
-        this.breadcrumbList[1] = { name: this.leftList[this.position - 1].name, url: '/about/' + this.position }
+        this.breadcrumbList[1] = {
+          name: this.leftList[this.position - 1].name,
+          url: '/newsInformation/' + this.position
+        }
       }
     },
     mounted() {
@@ -53,11 +56,10 @@
         leftList: [
           { name: '智库动态', position: 1 },
           { name: '媒体报道', position: 2 }
-        ],
+        ]
       }
     },
-    methods: {
-    }
+    methods: {}
   }
 </script>
 
@@ -69,42 +71,7 @@
     min-height: 600px;
   }
 
-
   ul {
     list-style: none;
-  }
-
-  .left-box > div {
-    width: 260px;
-    margin: 0px 0 13px;
-    height: 50px;
-    font-size: 18px;
-    cursor: pointer;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-left: 6px solid #fff;
-    transition: all 0.3s;
-  }
-
-  .pagination {
-    text-align: right;
-  }
-
-  .line {
-    border-left: 6px solid #095baf !important;
-    color: #095baf !important;
-  }
-
-  .leadertext {
-    background: #f3f4f6;
-    line-height: 28px;
-    color: #095baf;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 0 0 0 10px;
-    display: block;
-    margin-bottom: 20px;
   }
 </style>
